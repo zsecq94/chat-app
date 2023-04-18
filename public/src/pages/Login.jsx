@@ -11,9 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     username: "",
-    email: "",
     password: "",
-    confirmPassword: "",
   });
   const toastOptions = {
     position: "bottom-right",
@@ -22,6 +20,13 @@ const Login = () => {
     draggable: true,
     theme: "dark",
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
@@ -30,7 +35,7 @@ const Login = () => {
         username,
         password,
       });
-      if (data.statue === false) {
+      if (data.status === false) {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
@@ -52,7 +57,6 @@ const Login = () => {
       toast.error("아이디와 비밀번호를 입력해주세요.", toastOptions);
       return false;
     }
-    toast.success("회원가입 성공!", toastOptions);
     return true;
   };
 
@@ -66,7 +70,7 @@ const Login = () => {
           </div>
           <input
             type="text"
-            placeholder="UserName"
+            placeholder="아이디"
             name="username"
             onChange={(e) => handleChange(e)}
             min="3"
@@ -74,14 +78,14 @@ const Login = () => {
 
           <input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             name="password"
             onChange={(e) => handleChange(e)}
           />
 
-          <button type="submit">Login</button>
+          <button type="submit">로그인</button>
           <span>
-            회원가입을 하시겠습니까? <Link to="/register">Sign up</Link>
+            아이디가 없으신가요 ?<Link to="/register"> 회원가입</Link>
           </span>
         </form>
       </FormContainer>
@@ -153,6 +157,10 @@ const FormContainer = styled.div`
         color: #4e0eff;
         text-decoration: none;
         font-weight: bold;
+        transition: 0.5s ease-in-out;
+        &:hover {
+          color: #997af0;
+        }
       }
     }
   }

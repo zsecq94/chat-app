@@ -15,6 +15,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -22,6 +23,13 @@ const Register = () => {
     draggable: true,
     theme: "dark",
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
@@ -36,7 +44,7 @@ const Register = () => {
       }
       if (data.status === true) {
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-        navigate("/");
+        navigate("/login");
       }
     }
   };
@@ -97,7 +105,7 @@ const Register = () => {
           />
           <button type="submit">Create User</button>
           <span>
-            이미 계정이 있으신가요? <Link to="/login">Login</Link>
+            이미 계정이 있으신가요 ? <Link to="/login">로그인</Link>
           </span>
         </form>
       </FormContainer>
@@ -169,6 +177,10 @@ const FormContainer = styled.div`
         color: #4e0eff;
         text-decoration: none;
         font-weight: bold;
+        transition: 0.5s ease-in-out;
+        &:hover {
+          color: #997af0;
+        }
       }
     }
   }
