@@ -18,7 +18,6 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
     changeChat(contact);
   };
   return (
-<<<<<<< HEAD
     <>
       {currentUserMImage && currentUserName && (
         <Container>
@@ -63,11 +62,6 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
         </Container>
       )}
     </>
-=======
-    <div>
-      <h2>contactsasd</h2>
-    </div>
->>>>>>> 638c691e511128a634ec8f79342d4f7b093d5ff7
   );
 };
 
