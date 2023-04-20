@@ -6,6 +6,9 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserMImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
+  const [lastChat, setLastChat] = useState([]);
+
+  console.log(contacts);
 
   useEffect(() => {
     if (currentUser) {
@@ -13,10 +16,12 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
       setCurrentUserName(currentUser.username);
     }
   }, [currentUser]);
+
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
+
   return (
     <>
       {currentUserMImage && currentUserName && (
@@ -36,10 +41,14 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
                   onClick={() => changeCurrentChat(index, contact)}
                 >
                   <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt="avatar"
-                    />
+                    {contact.avatarImage ? (
+                      <img
+                        src={`data:image/svg+xml;base64,${contact?.avatarImage}`}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <img src="/images/img.png" alt="" />
+                    )}
                   </div>
                   <div className="username">
                     <h3>{contact.username}</h3>
@@ -51,7 +60,9 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
           <div className="current-user">
             <div className="avatar">
               <img
-                src={`data:image/svg+xml;base64,${currentUserMImage}`}
+                src={`data:image/svg+xml;base64,${
+                  currentUserMImage && currentUserMImage
+                }`}
                 alt="avatar"
               />
             </div>
@@ -115,6 +126,9 @@ const Container = styled.div`
       }
       .username {
         h3 {
+          color: white;
+        }
+        h6 {
           color: white;
         }
       }

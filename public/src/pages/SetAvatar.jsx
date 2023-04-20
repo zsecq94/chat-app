@@ -91,7 +91,7 @@ const SetAvatar = () => {
                   }`}
                 >
                   <img
-                    src={`data:image/svg+xml;base64,${avatar}`}
+                    src={`data:image/svg+xml;base64,${avatar && avatar}`}
                     alt="avatar"
                     onClick={() => setSelectedAvatar(index)}
                   />
